@@ -9,12 +9,6 @@ import { getWeekday } from './helpers/dateManipulations';
 
 const API_KEY = '96Q648C9TNSGLNZL9A687Q7JN';
 
-function getCurrentTimestamp() {
-  const currentDate = new Date();
-  const timestamp = currentDate.getTime();
-  return timestamp;
-}
-
 const citiesList = getCities(cities);
 
 const trips = [
@@ -40,7 +34,7 @@ const trips = [
 
 function App() {
   const [selectedTripId, setSelectedTripId] = useState(trips[0].id);
-  const [selectedTrip, setSelectedTrip] = useState({});
+  const [selectedTrip, setSelectedTrip] = useState(trips[0]);
   const [todayWeather, setTodayWeather] = useState({});
   const [tripWeather, setTripWeather] = useState({});
 
@@ -77,16 +71,14 @@ function App() {
     setInputEndDate(date);
   }
 
-  function handleAddNewTrip(params) {
-    // SOME CODE
-
+  function handleAddNewTrip() {
     if (!inputCity || !inputStartDate || !inputEndDate) {
       console.log('not enough info');
       return;
     }
 
     trips.push({
-      id: `${inputCity}213`,
+      id: `${inputCity}${inputStartDate}`,
       city: inputCity,
       startDate: inputStartDate,
       endDate: inputEndDate,
@@ -95,12 +87,17 @@ function App() {
     handleCloseModal();
   }
 
+  console.log(selectedTrip);
+  console.log(selectedTripId);
+
   useEffect(
     function () {
       fetch(
         `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${
           trips.find(trip => trip.id === selectedTripId).city
-        }/2024-02-22/2024-02-30?unitGroup=metric&include=days&key=${API_KEY}&contentType=json`
+        }/${trips.find(trip => trip.id === selectedTripId).startDate}/${
+          trips.find(trip => trip.id === selectedTripId).endDate
+        }?unitGroup=metric&include=days&key=${API_KEY}&contentType=json`
       )
         .then(res => res.json())
         .then(data => {

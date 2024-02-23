@@ -1,6 +1,6 @@
-function getDateFromToday(days) {
+export function getDateFromToday(days) {
   const date = new Date();
-  date.setDate(date.getDate() + days);
+  date.setDate(date.getDate() + days - 1);
   return date;
 }
 
@@ -19,6 +19,10 @@ export function getWeekday(date) {
   return WEEK_DAYS[day];
 }
 
-// console.log(getDateFromToday(5));
+export function convertDateToYYYYMMDD(date) {
+  const offset = date.getTimezoneOffset();
+  const handledDate = new Date(date.getTime() - offset * 60 * 1000);
+  return handledDate.toISOString().split('T')[0];
+}
 
 export default getDateFromToday;
