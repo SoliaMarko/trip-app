@@ -5,8 +5,6 @@ const TripItem = ({ onSelectTrip, id, city, startDate, endDate }) => {
     onSelectTrip(id);
   }
 
-  console.log(id);
-
   return (
     <li>
       <div className="trip-item" onClick={switchTrip}>

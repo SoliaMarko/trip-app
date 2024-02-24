@@ -1,5 +1,7 @@
-import getDateFromToday from '../../../helpers/dateManipulations';
-import { convertDateToYYYYMMDD } from '../../../helpers/dateManipulations';
+import {
+  getDateFromToday,
+  convertDateToYYYYMMDD,
+} from '../../../helpers/dateManipulations';
 
 function DateInput({ onInputDate }) {
   const maxDateRange = 15;

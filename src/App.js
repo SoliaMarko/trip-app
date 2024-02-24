@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import AsideBlock from './components/AsideBlock/AsideBlock';
 import MainBlock from './components/MainBlock/MainBlock';
@@ -13,9 +13,9 @@ const citiesList = getCities(cities);
 
 const trips = [
   {
-    id: `${citiesList[0]}213`,
+    id: `${citiesList[0]}2024-02-26`,
     city: citiesList[0],
-    startDate: '2024-02-25',
+    startDate: '2024-02-26',
     endDate: '2024-02-30',
   },
   {
@@ -39,10 +39,18 @@ function App() {
   const [tripWeather, setTripWeather] = useState({});
 
   const [openModal, setOpenModal] = useState(false);
+  const [duration, setDuration] = useState(getTimeToTrip());
+
+  function handleSearchTrip(e) {}
+
+  function getTimeToTrip() {
+    return Date.parse(selectedTrip.startDate) - Date.parse(new Date());
+  }
 
   function handleSelectTrip(id) {
     setSelectedTripId(() => id);
     setSelectedTrip(() => trips.find(trip => trip.id === selectedTripId));
+    setDuration(() => getTimeToTrip());
   }
 
   function handleOpenModal() {
@@ -89,6 +97,7 @@ function App() {
 
   console.log(selectedTrip);
   console.log(selectedTripId);
+  console.log(duration);
 
   useEffect(
     function () {
@@ -147,6 +156,7 @@ function App() {
           <AsideBlock
             todayWeather={todayWeather}
             getWeekday={getWeekday}
+            duration={duration}
           ></AsideBlock>
         </div>
       </div>
