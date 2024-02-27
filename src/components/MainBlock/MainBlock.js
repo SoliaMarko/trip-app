@@ -4,6 +4,7 @@ import TripList from './Trips/TripsList';
 import WeatherList from './Weather/WeatherList';
 
 function MainBlock({
+  onTripFilter,
   trips,
   selectedTrip,
   onSelectTrip,
@@ -13,7 +14,7 @@ function MainBlock({
 }) {
   return (
     <>
-      <SearchBar></SearchBar>
+      <SearchBar onTripFilter={onTripFilter}></SearchBar>
       <TripList
         trips={trips}
         selectedTrip={selectedTrip}

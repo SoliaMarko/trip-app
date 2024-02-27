@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { React, useState, useEffect } from 'react';
 import './App.css';
 import AsideBlock from './components/AsideBlock/AsideBlock';
 import MainBlock from './components/MainBlock/MainBlock';
@@ -44,6 +44,8 @@ function App() {
 
   const [time, setTime] = useState(duration);
 
+  const [tripFilter, setTripFilter] = useState('');
+
   useEffect(() => {
     setTimeout(() => {
       setTime(time - 1000);
@@ -52,7 +54,9 @@ function App() {
 
   // const timeLeftObj = getFormattedTime(time);
 
-  function handleSearchTrip(e) {}
+  function handleTripFilter(e) {
+    setTripFilter(() => e.target.value);
+  }
 
   function getTimeToTrip() {
     return Date.parse(selectedTrip.startDate) - Date.parse(new Date());
@@ -146,12 +150,19 @@ function App() {
       <div className="main-container">
         <div className="main-block">
           <MainBlock
-            trips={trips}
+            trips={
+              !tripFilter
+                ? trips
+                : trips.filter(trip =>
+                    trip.city.toLowerCase().startsWith(tripFilter.toLowerCase())
+                  )
+            }
             selectedTrip={selectedTrip}
             onSelectTrip={handleSelectTrip}
             tripWeather={tripWeather}
             getWeekday={getWeekday}
             onOpenModal={handleOpenModal}
+            onTripFilter={handleTripFilter}
           />
         </div>
         <div className="aside-block">
