@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getFormattedTime } from '../../helpers/dateManipulations';
 
-const CountdownBlock = ({ duration }) => {
-  const [time, setTime] = useState(duration);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setTime(time - 1000);
-    }, 1000);
-  }, [time]);
-
-  const timeLeftObj = getFormattedTime(time);
-
+const CountdownBlock = ({ timeLeftObj }) => {
   return (
     <div className="countdown-block">
       <div className="countdown-item">

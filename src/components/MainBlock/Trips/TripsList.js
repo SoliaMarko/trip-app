@@ -13,10 +13,10 @@ const TripsList = ({ trips, onSelectTrip, onOpenModal }) => {
           startDate={trip.startDate}
           endDate={trip.endDate}
           onSelectTrip={onSelectTrip}
-        ></TripItem>
+        />
       ))}
 
-      <AddTripButton onOpenModal={onOpenModal}></AddTripButton>
+      <AddTripButton onOpenModal={onOpenModal} />
     </ul>
   );
 };

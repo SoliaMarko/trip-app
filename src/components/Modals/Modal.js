@@ -13,19 +13,21 @@ function Modal({
   return (
     <>
       <div className="modal">
-        <ModalHeader onCloseModal={onCloseModal}></ModalHeader>
+        <ModalHeader onCloseModal={onCloseModal} />
         <hr />
+        {/* <form> */}
         <InputsBlock
           citiesList={citiesList}
           onInputCity={onInputCity}
           onInputStartDate={onInputStartDate}
           onInputEndDate={onInputEndDate}
-        ></InputsBlock>
+        />
         <hr />
         <ModalFooter
           onCloseModal={onCloseModal}
           onSaveNewTrip={onSaveNewTrip}
-        ></ModalFooter>
+        />
+        {/* </form> */}
       </div>
     </>
   );

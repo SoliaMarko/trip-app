@@ -1,7 +1,7 @@
 import {
   getDateFromToday,
   convertDateToYYYYMMDD,
-} from '../../../helpers/dateManipulations';
+} from '../../../helpers/dateTimeManipulations';
 
 function DateInput({ onInputDate }) {
   const maxDateRange = 15;

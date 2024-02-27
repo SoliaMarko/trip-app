@@ -5,9 +5,11 @@ import MainBlock from './components/MainBlock/MainBlock';
 import Modal from './components/Modals/Modal';
 import cities from './data/cities-mock-list.json';
 import getCities from './helpers/parseData';
-import { getWeekday } from './helpers/dateManipulations';
+import { getWeekday } from './helpers/dateTimeManipulations';
+import { getFormattedTime } from './helpers/dateTimeManipulations';
 
-const API_KEY = '96Q648C9TNSGLNZL9A687Q7JN';
+// const WEATHER_API_KEY = '96Q648C9TNSGLNZL9A687Q7JN';
+const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 const citiesList = getCities(cities);
 
@@ -40,6 +42,16 @@ function App() {
 
   const [openModal, setOpenModal] = useState(false);
   const [duration, setDuration] = useState(getTimeToTrip());
+
+  const [time, setTime] = useState(duration);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTime(time - 1000);
+    }, 1000);
+  }, [time]);
+
+  // const timeLeftObj = getFormattedTime(time);
 
   function handleSearchTrip(e) {}
 
@@ -93,6 +105,11 @@ function App() {
     });
 
     handleCloseModal();
+
+    // Reset Inputs
+    handleInputCity('');
+    handleInputStartDate('');
+    handleInputEndDate('');
   }
 
   console.log(selectedTrip);
@@ -106,7 +123,7 @@ function App() {
           trips.find(trip => trip.id === selectedTripId).city
         }/${trips.find(trip => trip.id === selectedTripId).startDate}/${
           trips.find(trip => trip.id === selectedTripId).endDate
-        }?unitGroup=metric&include=days&key=${API_KEY}&contentType=json`
+        }?unitGroup=metric&include=days&key=${WEATHER_API_KEY}&contentType=json`
       )
         .then(res => res.json())
         .then(data => {
@@ -121,7 +138,7 @@ function App() {
       fetch(
         `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${
           trips.find(trip => trip.id === selectedTripId).city
-        }/today?unitGroup=metric&include=days&key=${API_KEY}&contentType=json
+        }/today?unitGroup=metric&include=days&key=${WEATHER_API_KEY}&contentType=json
       `
       )
         .then(res => res.json())
@@ -150,14 +167,15 @@ function App() {
             tripWeather={tripWeather}
             getWeekday={getWeekday}
             onOpenModal={handleOpenModal}
-          ></MainBlock>
+          />
         </div>
         <div className="aside-block">
           <AsideBlock
             todayWeather={todayWeather}
             getWeekday={getWeekday}
             duration={duration}
-          ></AsideBlock>
+            timeLeftObj={getFormattedTime(time)}
+          />
         </div>
       </div>
 
@@ -172,7 +190,7 @@ function App() {
             onInputStartDate={handleInputStartDate}
             onInputEndDate={handleInputEndDate}
             onSaveNewTrip={handleAddNewTrip}
-          ></Modal>
+          />
         </div>
       )}
     </div>
