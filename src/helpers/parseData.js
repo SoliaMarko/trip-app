@@ -1,3 +1,5 @@
+import cities from '../data/cities-mock-list.json';
+
 function parceData(data) {
   return JSON.parse(JSON.stringify(data));
 }
@@ -11,4 +13,6 @@ function getCities(jsonData) {
   }
 }
 
-export default getCities;
+const citiesList = getCities(cities);
+
+export default citiesList;

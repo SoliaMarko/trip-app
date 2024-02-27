@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 
-const TripItem = ({ onSelectTrip, id, city, startDate, endDate }) => {
+const TripItem = ({
+  onSelectTrip,
+  id,
+  city,
+  startDate,
+  endDate,
+  selected = false,
+}) => {
   function switchTrip() {
     onSelectTrip(id);
   }
@@ -14,7 +21,7 @@ const TripItem = ({ onSelectTrip, id, city, startDate, endDate }) => {
             .join('')}.webp`)}
           alt={`${city}-illustration`}
         />
-        <div className="trip-info">
+        <div className={`${selected ? 'selected' : ''} trip-info`}>
           <h4 className="trip-city">{city}</h4>
           <p className="trip-dates">
             {startDate} - {endDate}

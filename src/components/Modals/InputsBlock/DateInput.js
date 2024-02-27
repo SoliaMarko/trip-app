@@ -3,7 +3,7 @@ import {
   convertDateToYYYYMMDD,
 } from '../../../helpers/dateTimeManipulations';
 
-function DateInput({ onInputDate }) {
+function DateInput({ children, onInputDate }) {
   const maxDateRange = 15;
   const minDate = convertDateToYYYYMMDD(new Date());
   const maxDate = convertDateToYYYYMMDD(getDateFromToday(maxDateRange));
@@ -14,7 +14,7 @@ function DateInput({ onInputDate }) {
 
   return (
     <div className="modal-input">
-      <label></label>
+      <label className="required-label">{children}</label>
       <input type="date" min={minDate} max={maxDate} onChange={changeDate} />
     </div>
   );

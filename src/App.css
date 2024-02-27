@@ -104,7 +104,18 @@ button {
 
 /* ----- MAIN BLOCK ----- */
 
-/* NAV BAR */
+.search-input {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
 
 input[type='text'] {
   width: 250px;
@@ -116,6 +127,7 @@ input[type='text'] {
   background-position: 10px 10px;
   background-repeat: no-repeat;
   padding: 12px 20px 12px 40px;
+  margin: 0;
   transition: width 0.4s ease-in-out;
 }
 
@@ -163,9 +175,13 @@ input[type='text']:focus {
 }
 
 .trip-item > img {
-  width: 100%;
   width: 230px;
   height: 230px;
+  object-fit: cover;
+}
+
+.selected {
+  border-color: #7dc0ff;
 }
 
 /* WEATHER LIST */
@@ -224,7 +240,7 @@ input[type='text']:focus {
   transform: translate(-50%, -50%);
   background-color: white;
   width: 50%;
-  height: 80%;
+  height: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -245,10 +261,16 @@ input[type='text']:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 12%;
+}
+
+.modal-header button {
+  background-color: #fff;
+  font-size: large;
 }
 
 .modal-inputs {
-  height: 50%;
+  height: 86%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -257,6 +279,16 @@ input[type='text']:focus {
 
 .modal-input {
   width: 100%;
+}
+
+.modal-input select,
+.modal-input input {
+  margin: 20px auto;
+}
+
+.required-label::before {
+  content: '* ';
+  color: #ff0000;
 }
 
 .modal-input > select,
@@ -275,6 +307,55 @@ input[type='text']:focus {
 .modal-inputs,
 .modal-footer {
   padding: 2%;
+}
+
+.modal-footer {
+  height: 12%;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+}
+
+.modal-footer .buttons-container {
+  width: 25%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-footer button {
+  border: none;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.modal-footer .close-btn {
+  color: #000;
+  background-color: #fff;
+  border: 1.4px solid #d9d9d9;
+}
+
+.modal-footer .save-btn {
+  color: #fff;
+  background-color: #1890ff;
+  border: 1.4px solid #1890ff;
+}
+
+.modal-footer .close-btn:hover {
+  background-color: #d9d9d9;
+  color: #000;
+}
+
+.modal-footer .save-btn:hover {
+  background-color: #fff;
+  color: #1890ff;
 }
 
 /* ----- OTHERS ----- */

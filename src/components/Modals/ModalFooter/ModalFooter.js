@@ -1,8 +1,14 @@
 function ModalFooter({ onCloseModal, onSaveNewTrip }) {
   return (
     <div className="modal-footer">
-      <button onClick={onCloseModal}>Cancel</button>
-      <button onClick={onSaveNewTrip}>Save</button>
+      <div className="buttons-container">
+        <button className="close-btn" onClick={onCloseModal}>
+          Cancel
+        </button>
+        <button className="save-btn" onClick={onSaveNewTrip}>
+          Save
+        </button>
+      </div>
     </div>
   );
 }

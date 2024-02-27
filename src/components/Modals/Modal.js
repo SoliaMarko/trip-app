@@ -12,10 +12,9 @@ function Modal({
 }) {
   return (
     <>
-      <div className="modal">
+      <form className="modal">
         <ModalHeader onCloseModal={onCloseModal} />
         <hr />
-        {/* <form> */}
         <InputsBlock
           citiesList={citiesList}
           onInputCity={onInputCity}
@@ -27,8 +26,7 @@ function Modal({
           onCloseModal={onCloseModal}
           onSaveNewTrip={onSaveNewTrip}
         />
-        {/* </form> */}
-      </div>
+      </form>
     </>
   );
 }

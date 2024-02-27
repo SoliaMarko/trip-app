@@ -12,6 +12,7 @@ const TripsList = ({ trips, onSelectTrip, onOpenModal }) => {
           city={trip.city}
           startDate={trip.startDate}
           endDate={trip.endDate}
+          selected={trip.selected}
           onSelectTrip={onSelectTrip}
         />
       ))}

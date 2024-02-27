@@ -1,7 +1,7 @@
 function ModalHeader({ onCloseModal }) {
   return (
     <div className="modal-header">
-      <p>Create Trip</p>
+      <h3>Create Trip</h3>
       <button onClick={onCloseModal}>❌</button>
     </div>
   );

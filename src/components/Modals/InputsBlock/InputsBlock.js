@@ -10,9 +10,11 @@ function InputsBlock({
 }) {
   return (
     <div className="modal-inputs">
-      <DropdownMenu citiesList={citiesList} onInputCity={onInputCity} />
-      <DateInput onInputDate={onInputStartDate} />
-      <DateInput onInputDate={onInputEndDate} />
+      <DropdownMenu citiesList={citiesList} onInputCity={onInputCity}>
+        City
+      </DropdownMenu>
+      <DateInput onInputDate={onInputStartDate}>Start date</DateInput>
+      <DateInput onInputDate={onInputEndDate}>End date </DateInput>
     </div>
   );
 }

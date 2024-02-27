@@ -3,14 +3,11 @@ import './App.css';
 import AsideBlock from './components/AsideBlock/AsideBlock';
 import MainBlock from './components/MainBlock/MainBlock';
 import Modal from './components/Modals/Modal';
-import cities from './data/cities-mock-list.json';
-import getCities from './helpers/parseData';
+import citiesList from './helpers/parseData';
 import { getWeekday } from './helpers/dateTimeManipulations';
 import { getFormattedTime } from './helpers/dateTimeManipulations';
 
 import { fetchWeatherData } from './utils/fetchData';
-
-const citiesList = getCities(cities);
 
 const trips = [
   {
@@ -18,18 +15,21 @@ const trips = [
     city: citiesList[0],
     startDate: '2024-02-26',
     endDate: '2024-02-30',
+    selected: true,
   },
   {
     id: `${citiesList[1]}213`,
     city: citiesList[1],
     startDate: '2024-02-25',
     endDate: '2024-02-30',
+    selected: false,
   },
   {
     id: `${citiesList[2]}213`,
     city: citiesList[2],
     startDate: '2024-02-25',
     endDate: '2024-02-30',
+    selected: false,
   },
 ];
 
@@ -94,7 +94,8 @@ function App() {
     setInputEndDate(date);
   }
 
-  function handleAddNewTrip() {
+  function handleAddNewTrip(e) {
+    e.preventDefault();
     if (!inputCity || !inputStartDate || !inputEndDate) {
       console.log('not enough info');
       return;
@@ -105,6 +106,7 @@ function App() {
       city: inputCity,
       startDate: inputStartDate,
       endDate: inputEndDate,
+      selected: false,
     });
 
     handleCloseModal();
