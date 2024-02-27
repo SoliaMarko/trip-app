@@ -8,8 +8,7 @@ import getCities from './helpers/parseData';
 import { getWeekday } from './helpers/dateTimeManipulations';
 import { getFormattedTime } from './helpers/dateTimeManipulations';
 
-// const WEATHER_API_KEY = '96Q648C9TNSGLNZL9A687Q7JN';
-const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+import { fetchWeatherData } from './utils/fetchData';
 
 const citiesList = getCities(cities);
 
@@ -112,42 +111,28 @@ function App() {
     handleInputEndDate('');
   }
 
-  console.log(selectedTrip);
-  console.log(selectedTripId);
-  console.log(duration);
+  useEffect(() => {
+    const fetchData = async () => {
+      const tripWeatherData = await fetchWeatherData(
+        trips.find(trip => trip.id === selectedTripId),
+        false
+      );
 
-  useEffect(
-    function () {
-      fetch(
-        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${
-          trips.find(trip => trip.id === selectedTripId).city
-        }/${trips.find(trip => trip.id === selectedTripId).startDate}/${
-          trips.find(trip => trip.id === selectedTripId).endDate
-        }?unitGroup=metric&include=days&key=${WEATHER_API_KEY}&contentType=json`
-      )
-        .then(res => res.json())
-        .then(data => {
-          setTripWeather(() => data);
-        });
-    },
-    [selectedTripId]
-  );
+      setTripWeather(() => tripWeatherData);
+    };
+    fetchData();
+  }, [selectedTripId]);
 
-  useEffect(
-    function () {
-      fetch(
-        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${
-          trips.find(trip => trip.id === selectedTripId).city
-        }/today?unitGroup=metric&include=days&key=${WEATHER_API_KEY}&contentType=json
-      `
-      )
-        .then(res => res.json())
-        .then(data => {
-          setTodayWeather(() => data);
-        });
-    },
-    [selectedTripId]
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      const todayWeatherData = await fetchWeatherData(
+        trips.find(trip => trip.id === selectedTripId)
+      );
+
+      setTodayWeather(() => todayWeatherData);
+    };
+    fetchData();
+  }, [selectedTripId]);
 
   if (
     Object.keys(todayWeather).length === 0 ||
