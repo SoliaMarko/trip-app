@@ -1,35 +1,19 @@
-import { React, useState, useEffect } from 'react';
-import './App.css';
+import { React, useState, useEffect, useRef } from 'react';
 import AsideBlock from './components/AsideBlock/AsideBlock';
 import MainBlock from './components/MainBlock/MainBlock';
 import Modal from './components/Modals/Modal';
 import citiesList from './helpers/parseData';
 import { getWeekday } from './helpers/dateTimeManipulations';
 import { getFormattedTime } from './helpers/dateTimeManipulations';
-
 import { fetchWeatherData } from './utils/fetchData';
 
 const trips = [
   {
-    id: `${citiesList[0]}2024-02-26`,
+    id: `${citiesList[0]}2024-02-28`,
     city: citiesList[0],
-    startDate: '2024-02-26',
-    endDate: '2024-02-30',
+    startDate: '2024-02-28',
+    endDate: '2024-03-05',
     selected: true,
-  },
-  {
-    id: `${citiesList[1]}213`,
-    city: citiesList[1],
-    startDate: '2024-02-25',
-    endDate: '2024-02-30',
-    selected: false,
-  },
-  {
-    id: `${citiesList[2]}213`,
-    city: citiesList[2],
-    startDate: '2024-02-25',
-    endDate: '2024-02-30',
-    selected: false,
   },
 ];
 
@@ -40,32 +24,45 @@ function App() {
   const [tripWeather, setTripWeather] = useState({});
 
   const [openModal, setOpenModal] = useState(false);
-  const [duration, setDuration] = useState(getTimeToTrip());
+  const [duration, setDuration] = useState(getTimeToTrip(trips[0].id));
 
   const [time, setTime] = useState(duration);
 
   const [tripFilter, setTripFilter] = useState('');
 
+  const timerRef = useRef();
+
   useEffect(() => {
-    setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       setTime(time - 1000);
     }, 1000);
-  }, [time]);
 
-  // const timeLeftObj = getFormattedTime(time);
+    return () => clearTimeout(timerRef.current);
+  }, [time]);
 
   function handleTripFilter(e) {
     setTripFilter(() => e.target.value);
   }
 
-  function getTimeToTrip() {
-    return Date.parse(selectedTrip.startDate) - Date.parse(new Date());
+  function getTimeToTrip(id) {
+    const trip = trips.find(trip => trip.id === id);
+    return Date.parse(trip.startDate) - Date.parse(new Date());
+  }
+
+  function handleClearTimeout() {
+    clearTimeout(timerRef.current);
+
+    timerRef.current = setTimeout(() => {
+      setTime(time - 1000);
+    }, 1000);
   }
 
   function handleSelectTrip(id) {
     setSelectedTripId(() => id);
     setSelectedTrip(() => trips.find(trip => trip.id === selectedTripId));
-    setDuration(() => getTimeToTrip());
+    setDuration(getTimeToTrip(id));
+    setTime(getTimeToTrip(id));
+    handleClearTimeout();
   }
 
   function handleOpenModal() {
@@ -124,6 +121,9 @@ function App() {
         false
       );
 
+      console.log(trips.find(trip => trip.id === selectedTripId));
+      console.log('trip weather data', tripWeatherData);
+
       setTripWeather(() => tripWeatherData);
     };
     fetchData();
@@ -134,6 +134,9 @@ function App() {
       const todayWeatherData = await fetchWeatherData(
         trips.find(trip => trip.id === selectedTripId)
       );
+
+      console.log(trips.find(trip => trip.id === selectedTripId));
+      console.log('today weather data', todayWeatherData);
 
       setTodayWeather(() => todayWeatherData);
     };

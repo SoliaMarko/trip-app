@@ -8,9 +8,9 @@ const TripItem = ({
   endDate,
   selected = false,
 }) => {
-  function switchTrip() {
+  const switchTrip = () => {
     onSelectTrip(id);
-  }
+  };
 
   return (
     <li>
