@@ -3,7 +3,7 @@ import {
   convertDateToYYYYMMDD,
 } from '../../../helpers/dateTimeManipulations';
 
-function DateInput({ children, onInputDate }) {
+function DateInput({ onInputDate, children }) {
   const maxDateRange = 15;
   const minDate = convertDateToYYYYMMDD(new Date());
   const maxDate = convertDateToYYYYMMDD(getDateFromToday(maxDateRange));

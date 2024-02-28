@@ -1,33 +1,39 @@
-import { React, useState, useEffect, useRef } from 'react';
+import { React, useState, useEffect, useRef, createContext } from 'react';
+// components
 import AsideBlock from './components/AsideBlock/AsideBlock';
 import MainBlock from './components/MainBlock/MainBlock';
 import Modal from './components/Modals/Modal';
+// data
 import citiesList from './helpers/parseData';
+// local functions
 import { getWeekday } from './helpers/dateTimeManipulations';
 import { getFormattedTime } from './helpers/dateTimeManipulations';
 import { fetchWeatherData } from './utils/fetchData';
 
 const trips = [
   {
-    id: `${citiesList[0]}2024-02-28`,
+    id: `${citiesList[0]}2024-03-01`,
     city: citiesList[0],
-    startDate: '2024-02-28',
+    startDate: '2024-03-01',
     endDate: '2024-03-05',
     selected: true,
   },
 ];
+
+// Contexts
+export const TripContext = createContext();
+export const WeatherContext = createContext();
+export const ModalContext = createContext();
+export const TimeContext = createContext();
 
 function App() {
   const [selectedTripId, setSelectedTripId] = useState(trips[0].id);
   const [selectedTrip, setSelectedTrip] = useState(trips[0]);
   const [todayWeather, setTodayWeather] = useState({});
   const [tripWeather, setTripWeather] = useState({});
-
   const [openModal, setOpenModal] = useState(false);
   const [duration, setDuration] = useState(getTimeToTrip(trips[0].id));
-
   const [time, setTime] = useState(duration);
-
   const [tripFilter, setTripFilter] = useState('');
 
   const timerRef = useRef();
@@ -121,9 +127,6 @@ function App() {
         false
       );
 
-      console.log(trips.find(trip => trip.id === selectedTripId));
-      console.log('trip weather data', tripWeatherData);
-
       setTripWeather(() => tripWeatherData);
     };
     fetchData();
@@ -134,9 +137,6 @@ function App() {
       const todayWeatherData = await fetchWeatherData(
         trips.find(trip => trip.id === selectedTripId)
       );
-
-      console.log(trips.find(trip => trip.id === selectedTripId));
-      console.log('today weather data', todayWeatherData);
 
       setTodayWeather(() => todayWeatherData);
     };
@@ -150,51 +150,71 @@ function App() {
     return <p>Loading...</p>;
   }
 
+  const getTrips = () => {
+    return !tripFilter
+      ? trips
+      : trips.filter(trip =>
+          trip.city.toLowerCase().startsWith(tripFilter.toLowerCase())
+        );
+  };
+
+  // Setting Context Values
+
+  const tripValues = {
+    trips: getTrips(),
+    selectedTrip: selectedTrip,
+    onSelectTrip: handleSelectTrip,
+    onTripFilter: handleTripFilter,
+    citiesList: citiesList,
+    onSaveNewTrip: handleAddNewTrip,
+  };
+
+  const weatherValues = {
+    tripWeather: tripWeather,
+    todayWeather: todayWeather,
+  };
+
+  const modalValues = {
+    onOpenModal: handleOpenModal,
+    onCloseModal: handleCloseModal,
+    onInputCity: handleInputCity,
+    onInputStartDate: handleInputStartDate,
+    onInputEndDate: handleInputEndDate,
+  };
+
+  const TimeValues = {
+    getWeekday: getWeekday,
+    duration: duration,
+    timeLeftObj: getFormattedTime(time),
+  };
+
   return (
-    <div className="app-container">
-      <div className="main-container">
-        <div className="main-block">
-          <MainBlock
-            trips={
-              !tripFilter
-                ? trips
-                : trips.filter(trip =>
-                    trip.city.toLowerCase().startsWith(tripFilter.toLowerCase())
-                  )
-            }
-            selectedTrip={selectedTrip}
-            onSelectTrip={handleSelectTrip}
-            tripWeather={tripWeather}
-            getWeekday={getWeekday}
-            onOpenModal={handleOpenModal}
-            onTripFilter={handleTripFilter}
-          />
-        </div>
-        <div className="aside-block">
-          <AsideBlock
-            todayWeather={todayWeather}
-            getWeekday={getWeekday}
-            duration={duration}
-            timeLeftObj={getFormattedTime(time)}
-          />
-        </div>
-      </div>
+    <TripContext.Provider value={tripValues}>
+      <WeatherContext.Provider value={weatherValues}>
+        <ModalContext.Provider value={modalValues}>
+          <TimeContext.Provider value={TimeValues}>
+            <div className="app-container">
+              <div className="main-container">
+                <div className="main-block">
+                  <MainBlock />
+                </div>
+                <div className="aside-block">
+                  <AsideBlock />
+                </div>
+              </div>
 
-      {openModal && <div className="overlap"></div>}
+              {openModal && <div className="overlap"></div>}
 
-      {openModal && (
-        <div className="modal-container">
-          <Modal
-            citiesList={citiesList}
-            onCloseModal={handleCloseModal}
-            onInputCity={handleInputCity}
-            onInputStartDate={handleInputStartDate}
-            onInputEndDate={handleInputEndDate}
-            onSaveNewTrip={handleAddNewTrip}
-          />
-        </div>
-      )}
-    </div>
+              {openModal && (
+                <div className="modal-container">
+                  <Modal />
+                </div>
+              )}
+            </div>
+          </TimeContext.Provider>
+        </ModalContext.Provider>
+      </WeatherContext.Provider>
+    </TripContext.Provider>
   );
 }
 

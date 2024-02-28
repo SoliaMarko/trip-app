@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { TimeContext } from '../../App';
 
-const CountdownBlock = ({ timeLeftObj }) => {
+const Countdown = () => {
+  const { timeLeftObj } = useContext(TimeContext);
+
   return (
-    <div className="countdown-block">
+    <div className="countdown-wrapper">
       <div className="countdown-item">
         <span className="countdown-digits">{timeLeftObj.days}</span>{' '}
         <span>Days</span>
@@ -23,4 +26,4 @@ const CountdownBlock = ({ timeLeftObj }) => {
   );
 };
 
-export default CountdownBlock;
+export default Countdown;

@@ -1,32 +1,15 @@
-import './MainBlock';
 import SearchBar from './Search/SearchBar';
 import TripList from './Trips/TripsList';
 import WeatherList from './Weather/WeatherList';
 
-function MainBlock({
-  onTripFilter,
-  trips,
-  selectedTrip,
-  onSelectTrip,
-  tripWeather,
-  getWeekday,
-  onOpenModal,
-}) {
+function MainBlock({ trips }) {
   return (
     <>
-      <SearchBar onTripFilter={onTripFilter}></SearchBar>
-      <TripList
-        trips={trips}
-        selectedTrip={selectedTrip}
-        onSelectTrip={onSelectTrip}
-        onOpenModal={onOpenModal}
-      ></TripList>
+      <SearchBar></SearchBar>
+      <TripList trips={trips}></TripList>
 
       <h3>Week</h3>
-      <WeatherList
-        tripWeather={tripWeather}
-        getWeekday={getWeekday}
-      ></WeatherList>
+      <WeatherList></WeatherList>
     </>
   );
 }

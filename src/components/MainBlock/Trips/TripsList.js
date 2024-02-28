@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import TripItem from './TripItem';
 import AddTripButton from './AddTripButton';
+import { ModalContext, TripContext } from '../../../App';
 
-const TripsList = ({ trips, onSelectTrip, onOpenModal }) => {
+const TripsList = () => {
+  const { trips, onSelectTrip } = useContext(TripContext);
+  const { onOpenModal } = useContext(ModalContext);
+
   return (
     <ul className="trips-list">
       {trips.map(trip => (

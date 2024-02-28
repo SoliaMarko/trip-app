@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { ModalContext } from '../../../App';
 
-const AddTripButton = ({ onOpenModal }) => {
+const AddTripButton = () => {
+  const { onOpenModal } = useContext(ModalContext);
+
   return (
     <li>
       <button className="add-trip-button" onClick={onOpenModal}>

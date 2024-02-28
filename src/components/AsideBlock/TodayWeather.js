@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useContext } from 'react';
+import { TimeContext, WeatherContext } from '../../App';
 
-const TodayWeather = ({ todayWeather, getWeekday }) => {
+const TodayWeather = () => {
+  const { todayWeather } = useContext(WeatherContext);
+  const { getWeekday } = useContext(TimeContext);
+
   return (
     <div className="today-weather">
       <p className="day">

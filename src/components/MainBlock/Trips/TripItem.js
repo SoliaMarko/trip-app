@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { TripContext } from '../../../App';
 
-const TripItem = ({
-  onSelectTrip,
-  id,
-  city,
-  startDate,
-  endDate,
-  selected = false,
-}) => {
+const TripItem = ({ id, city, startDate, endDate, selected = false }) => {
+  const { onSelectTrip } = useContext(TripContext);
+
   const switchTrip = () => {
     onSelectTrip(id);
   };

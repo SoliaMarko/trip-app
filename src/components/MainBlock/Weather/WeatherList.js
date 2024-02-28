@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import WeatherItem from './WeatherItem';
+import { TimeContext, WeatherContext } from '../../../App';
 
-const WeatherList = ({ tripWeather, getWeekday }) => {
+const WeatherList = () => {
+  const { tripWeather } = useContext(WeatherContext);
+  const { getWeekday } = useContext(TimeContext);
+
   return (
     <ul className="weather-list">
-      {/* <WeatherItem></WeatherItem>
-      <WeatherItem></WeatherItem>
-      <WeatherItem></WeatherItem>
-      <WeatherItem></WeatherItem> */}
       {tripWeather.days.map(day => (
         <WeatherItem
           key={day.datetime}
