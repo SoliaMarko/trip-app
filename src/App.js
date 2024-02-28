@@ -46,15 +46,6 @@ function App() {
     return () => clearTimeout(timerRef.current);
   }, [time]);
 
-  function handleTripFilter(e) {
-    setTripFilter(() => e.target.value);
-  }
-
-  function getTimeToTrip(id) {
-    const trip = trips.find(trip => trip.id === id);
-    return Date.parse(trip.startDate) - Date.parse(new Date());
-  }
-
   function handleClearTimeout() {
     clearTimeout(timerRef.current);
 
@@ -63,20 +54,33 @@ function App() {
     }, 1000);
   }
 
+  function handleTripFilter(e) {
+    setTripFilter(() => e.target.value);
+  }
+
+  function getTimeToTrip(id) {
+    const trip = trips.find(trip => trip.id === id);
+    // parsed start date minus 2 hours
+    return (
+      Date.parse(trip.startDate) - 2 * 3600 * 1000 - Date.parse(new Date())
+    );
+  }
+
   function handleSelectTrip(id) {
     setSelectedTripId(() => id);
-    setSelectedTrip(() => trips.find(trip => trip.id === selectedTripId));
+    setSelectedTrip(() => {
+      const selectedTrip = trips.find(trip => trip.id === id);
+      trips.forEach(trip => (trip.selected = false));
+      selectedTrip.selected = true;
+      return selectedTrip;
+    });
     setDuration(getTimeToTrip(id));
     setTime(getTimeToTrip(id));
     handleClearTimeout();
   }
 
-  function handleOpenModal() {
-    setOpenModal(true);
-  }
-
-  function handleCloseModal() {
-    setOpenModal(false);
+  function toggleModal() {
+    setOpenModal(!openModal);
   }
 
   // ***** INPUTS STATES *****
@@ -112,7 +116,7 @@ function App() {
       selected: false,
     });
 
-    handleCloseModal();
+    toggleModal();
 
     // Reset Inputs
     handleInputCity('');
@@ -175,14 +179,14 @@ function App() {
   };
 
   const modalValues = {
-    onOpenModal: handleOpenModal,
-    onCloseModal: handleCloseModal,
+    onOpenModal: toggleModal,
+    onCloseModal: toggleModal,
     onInputCity: handleInputCity,
     onInputStartDate: handleInputStartDate,
     onInputEndDate: handleInputEndDate,
   };
 
-  const TimeValues = {
+  const timeValues = {
     getWeekday: getWeekday,
     duration: duration,
     timeLeftObj: getFormattedTime(time),
@@ -192,7 +196,7 @@ function App() {
     <TripContext.Provider value={tripValues}>
       <WeatherContext.Provider value={weatherValues}>
         <ModalContext.Provider value={modalValues}>
-          <TimeContext.Provider value={TimeValues}>
+          <TimeContext.Provider value={timeValues}>
             <div className="app-container">
               <div className="main-container">
                 <div className="main-block">

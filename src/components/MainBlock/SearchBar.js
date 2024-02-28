@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import SearchIcon from '../../../assets/icons/search-icon.png';
-import { TripContext } from '../../../App';
+import SearchIcon from '../../assets/icons/search-icon.png';
+import { TripContext } from '../../App';
 
 const SearchBar = () => {
   const { onTripFilter } = useContext(TripContext);

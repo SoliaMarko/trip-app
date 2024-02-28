@@ -1,6 +1,6 @@
 import InputsBlock from './InputsBlock/InputsBlock';
-import ModalFooter from './ModalFooter/ModalFooter';
-import ModalHeader from './ModalHeader/ModalHeader';
+import ModalFooter from './ModalFooter';
+import ModalHeader from './ModalHeader';
 
 function Modal() {
   return (

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import DateInput from './DateInput';
 import DropdownMenu from './DropdownMenu';
 import { ModalContext, TripContext } from '../../../App';

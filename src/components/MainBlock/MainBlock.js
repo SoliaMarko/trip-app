@@ -1,4 +1,4 @@
-import SearchBar from './Search/SearchBar';
+import SearchBar from './SearchBar';
 import TripList from './Trips/TripsList';
 import WeatherList from './Weather/WeatherList';
 

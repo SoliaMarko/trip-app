@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ModalContext } from '../../../App';
+import { ModalContext } from '../../App';
 
 function ModalHeader() {
   const { onCloseModal } = useContext(ModalContext);

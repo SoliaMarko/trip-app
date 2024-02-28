@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ModalContext, TripContext } from '../../../App';
+import { ModalContext, TripContext } from '../../App';
 
 function ModalFooter() {
   const { onCloseModal } = useContext(ModalContext);
