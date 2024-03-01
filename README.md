@@ -1,4 +1,4 @@
-# [Trip App]([https://boisterous-mandazi-9f2de1.netlify.app/ "Trip App")
+# [Trip App](https://boisterous-mandazi-9f2de1.netlify.app/ "Trip App")
 
 `Live:` https://boisterous-mandazi-9f2de1.netlify.app/
 
