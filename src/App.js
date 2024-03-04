@@ -1,3 +1,4 @@
+import './App.css';
 import { React, useState, useEffect, useRef, createContext } from 'react';
 // components
 import AsideBlock from './components/AsideBlock/AsideBlock';
@@ -12,11 +13,32 @@ import { fetchWeatherData } from './utils/fetchData';
 
 const trips = [
   {
-    id: `${citiesList[0]}2024-03-01`,
+    id: `${citiesList[0]}2024-03-05`,
     city: citiesList[0],
-    startDate: '2024-03-01',
-    endDate: '2024-03-05',
+    startDate: '2024-03-05',
+    endDate: '2024-03-10',
+    selected: false,
+  },
+  {
+    id: `${citiesList[1]}2024-03-07`,
+    city: citiesList[1],
+    startDate: '2024-03-07',
+    endDate: '2024-03-13',
+    selected: false,
+  },
+  {
+    id: `${citiesList[2]}2024-03-13`,
+    city: citiesList[2],
+    startDate: '2024-03-13',
+    endDate: '2024-03-16',
     selected: true,
+  },
+  {
+    id: `${citiesList[3]}2024-03-11`,
+    city: citiesList[3],
+    startDate: '2024-03-11',
+    endDate: '2024-03-14',
+    selected: false,
   },
 ];
 
@@ -27,7 +49,6 @@ export const ModalContext = createContext();
 export const TimeContext = createContext();
 
 function App() {
-  const [selectedTripId, setSelectedTripId] = useState(trips[0].id);
   const [selectedTrip, setSelectedTrip] = useState(trips[0]);
   const [todayWeather, setTodayWeather] = useState({});
   const [tripWeather, setTripWeather] = useState({});
@@ -67,7 +88,6 @@ function App() {
   }
 
   function handleSelectTrip(id) {
-    setSelectedTripId(() => id);
     setSelectedTrip(() => {
       const selectedTrip = trips.find(trip => trip.id === id);
       trips.forEach(trip => (trip.selected = false));
@@ -127,25 +147,25 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const tripWeatherData = await fetchWeatherData(
-        trips.find(trip => trip.id === selectedTripId),
+        trips.find(trip => trip.id === selectedTrip.id),
         false
       );
 
       setTripWeather(() => tripWeatherData);
     };
     fetchData();
-  }, [selectedTripId]);
+  }, [selectedTrip]);
 
   useEffect(() => {
     const fetchData = async () => {
       const todayWeatherData = await fetchWeatherData(
-        trips.find(trip => trip.id === selectedTripId)
+        trips.find(trip => trip.id === selectedTrip.id)
       );
 
       setTodayWeather(() => todayWeatherData);
     };
     fetchData();
-  }, [selectedTripId]);
+  }, [selectedTrip]);
 
   if (
     Object.keys(todayWeather).length === 0 ||
@@ -198,7 +218,7 @@ function App() {
         <ModalContext.Provider value={modalValues}>
           <TimeContext.Provider value={timeValues}>
             <div className="app-container">
-              <div className="main-container">
+              <div className="layout-container">
                 <div className="main-block">
                   <MainBlock />
                 </div>

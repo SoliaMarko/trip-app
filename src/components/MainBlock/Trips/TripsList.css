@@ -1,0 +1,57 @@
+/* TRIPS LIST */
+
+.trips-list {
+  overflow-x: auto;
+}
+
+.trips-list-wrapper {
+  display: flex;
+  overflow-x: hidden;
+}
+
+.trips-list {
+  display: flex;
+  gap: 6rem;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  position: relative;
+}
+
+.trips-list::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.trips-list-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+}
+
+.prev-btn,
+.next-btn {
+  color: #b5afc0;
+  background-color: transparent;
+  font-size: 5.4rem;
+  position: absolute;
+  z-index: 2;
+}
+
+.prev-btn {
+  left: -4rem;
+}
+
+.next-btn {
+  right: -4rem;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  color: #3d426a;
+}
+
+.prev-btn:disabled:hover,
+.next-btn:disabled:hover {
+  color: #b5afc0;
+  cursor: not-allowed;
+}

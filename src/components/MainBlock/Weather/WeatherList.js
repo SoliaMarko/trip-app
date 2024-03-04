@@ -1,3 +1,4 @@
+import './WeatherList.css';
 import React, { useContext } from 'react';
 import WeatherItem from './WeatherItem';
 import { TimeContext, WeatherContext } from '../../../App';

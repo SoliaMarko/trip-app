@@ -1,0 +1,8 @@
+select {
+  cursor: pointer;
+}
+
+.city-option {
+  width: 40%;
+  font-size: 1.6rem;
+}

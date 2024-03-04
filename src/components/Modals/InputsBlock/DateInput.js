@@ -14,7 +14,7 @@ function DateInput({ onInputDate, children }) {
 
   return (
     <div className="modal-input">
-      <label className="required-label">{children}</label>
+      <label className="required-label modal-label">{children}</label>
       <input type="date" min={minDate} max={maxDate} onChange={changeDate} />
     </div>
   );

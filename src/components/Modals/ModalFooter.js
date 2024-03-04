@@ -1,3 +1,4 @@
+import './ModalFooter.css';
 import { useContext } from 'react';
 import { ModalContext, TripContext } from '../../App';
 

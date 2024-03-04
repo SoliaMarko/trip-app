@@ -1,3 +1,4 @@
+import './TodayWeather.css';
 import React from 'react';
 import { useContext } from 'react';
 import { TimeContext, WeatherContext } from '../../App';
@@ -13,6 +14,7 @@ const TodayWeather = () => {
       </p>
       <div className="temperature-container">
         <img
+          className="weather-icon"
           src={require(`../../assets/4th Set - Color/${todayWeather.days[0].icon}.png`)}
           alt="weather-icon"
         />

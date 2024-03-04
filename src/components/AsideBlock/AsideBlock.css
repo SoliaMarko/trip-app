@@ -1,0 +1,40 @@
+/* ----- ASIDE BLOCK ----- */
+
+.aside-content-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.aside-block .temperature-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aside-block .temperature {
+  font-size: 5.6rem;
+}
+
+.aside-block .temperature > sup {
+  font-size: 2.8rem;
+}
+
+.aside-block .day {
+  font-size: 5rem;
+  font-weight: 500;
+}
+
+.aside-block .city {
+  font-size: 3.4rem;
+  font-weight: 200;
+}
+
+@media only screen and (max-width: 950px) {
+  .aside-content-wrapper {
+    height: 69.8rem;
+  }
+}

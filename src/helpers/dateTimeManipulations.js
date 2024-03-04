@@ -26,6 +26,8 @@ export function convertDateToYYYYMMDD(date) {
 }
 
 export const getFormattedTime = miliseconds => {
+  if (miliseconds <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
   let totalSeconds = parseInt(Math.floor(miliseconds / 1000));
   let totalMinutes = parseInt(Math.floor(totalSeconds / 60));
   let totalHours = parseInt(Math.floor(totalMinutes / 60));

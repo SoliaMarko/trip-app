@@ -1,0 +1,12 @@
+.add-trip-button {
+  background-color: #f2f4f8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.add-trip-button > * {
+  font-size: 1.8rem;
+}

@@ -1,15 +1,16 @@
+import './WeatherItem.css';
 import React from 'react';
 
 const WeatherItem = ({ day, icon, tempmin, tempmax }) => {
   return (
     <li>
       <div className="weather-item">
-        <p>{day}</p>
+        <p className="day">{day}</p>
         <img
           src={require(`../../../assets/4th Set - Color/${icon}.png`)}
           alt="weather-icon"
         />
-        <p>
+        <p className="temperature">
           {Math.round(tempmin)}°/{Math.round(tempmax)}°
         </p>
       </div>

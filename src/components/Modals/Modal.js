@@ -1,3 +1,4 @@
+import './Modal.css';
 import InputsBlock from './InputsBlock/InputsBlock';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';

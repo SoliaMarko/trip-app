@@ -1,3 +1,4 @@
+import './InputsBlock.css';
 import { useContext } from 'react';
 import DateInput from './DateInput';
 import DropdownMenu from './DropdownMenu';

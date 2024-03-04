@@ -1,0 +1,21 @@
+.countdown-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-digits {
+  font-size: 3.8rem;
+  font-weight: 700;
+}
+
+.countdown-unit {
+  font-size: 1.6rem;
+}

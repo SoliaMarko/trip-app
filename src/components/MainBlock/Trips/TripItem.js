@@ -1,17 +1,19 @@
+import './TripItem.css';
 import React, { useContext } from 'react';
 import { TripContext } from '../../../App';
 
-const TripItem = ({ id, city, startDate, endDate, selected = false }) => {
-  const { onSelectTrip } = useContext(TripContext);
+const TripItem = React.forwardRef(
+  ({ id, city, startDate, endDate, selected = false }, ref) => {
+    const { onSelectTrip } = useContext(TripContext);
 
-  const switchTrip = () => {
-    onSelectTrip(id);
-  };
+    const switchTrip = () => {
+      onSelectTrip(id);
+    };
 
-  return (
-    <li>
-      <div className="trip-item" onClick={switchTrip}>
+    return (
+      <li className="trip-item" onClick={switchTrip} ref={ref}>
         <img
+          className="trip-image"
           src={require(`../../../assets/citiesImages/${city
             .split(' ')
             .join('')}.webp`)}
@@ -23,9 +25,9 @@ const TripItem = ({ id, city, startDate, endDate, selected = false }) => {
             {startDate} - {endDate}
           </p>
         </div>
-      </div>
-    </li>
-  );
-};
+      </li>
+    );
+  }
+);
 
 export default TripItem;

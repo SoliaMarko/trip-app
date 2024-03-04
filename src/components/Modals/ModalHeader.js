@@ -1,3 +1,4 @@
+import './ModalHeader.css';
 import { useContext } from 'react';
 import { ModalContext } from '../../App';
 

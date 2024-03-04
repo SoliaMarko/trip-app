@@ -1,0 +1,25 @@
+.weather-item {
+  height: 15rem;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weather-item .day {
+  color: #b5afc0;
+}
+
+.weather-item .temperature {
+  color: #3d426a;
+}
+
+.weather-item > * {
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.weather-item > img {
+  width: 6rem;
+}
