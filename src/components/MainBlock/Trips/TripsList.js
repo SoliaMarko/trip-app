@@ -27,12 +27,19 @@ const styles = window.getComputedStyle(rootElement);
 const rootFontSize = parseFloat(styles.getPropertyValue('font-size'));
 
 const TripsList = () => {
-  const { trips, onSelectTrip } = useContext(TripContext);
+  const { trips, onSelectTrip, onSortTrips } = useContext(TripContext);
   const { onOpenModal } = useContext(ModalContext);
 
   const [currentItem, setCurrentItem] = useState(0);
 
-  let imgWidthInPx = useRef();
+  const imgWidthInPx = useRef();
+  const scrollerRef = useRef();
+
+  const imgWidthInRem = imgWidthInPx.current / rootFontSize;
+
+  // itemWidth equal: trip-item width + gap (6rem)
+  const itemWidth = (imgWidthInRem + 6) * rootFontSize;
+  const totalItems = trips.length;
 
   useEffect(() => {
     imgWidthInPx.current = getImgWidth();
@@ -43,14 +50,6 @@ const TripsList = () => {
 
     return window.getComputedStyle(img).getPropertyValue('width');
   };
-
-  const imgWidthInRem = imgWidthInPx.current / rootFontSize;
-
-  // Equal: trip-item width + gap (6rem)
-  const itemWidth = (imgWidthInRem + 6) * rootFontSize;
-  const totalItems = trips.length;
-
-  const scrollerRef = useRef();
 
   const scrollToItem = useCallback(
     item => {
@@ -78,14 +77,12 @@ const TripsList = () => {
     scrollToItem(currentItem);
   }, [currentItem, scrollToItem]);
 
-  const handleSort = () => {};
-
   return (
     <div className="trips-list-container">
-      <button className="sort-up-btn" onClick={handleSort}>
+      <button className="sort-up-btn" onClick={e => onSortTrips(e, 'asc')}>
         <FontAwesomeIcon icon="fa-sort-up" />
       </button>
-      <button className="sort-down-btn" onClick={handleSort}>
+      <button className="sort-down-btn" onClick={e => onSortTrips(e, 'desc')}>
         <FontAwesomeIcon icon="fa-sort-down" />
       </button>
 

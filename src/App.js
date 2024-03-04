@@ -17,7 +17,7 @@ const trips = [
     city: citiesList[0],
     startDate: '2024-03-05',
     endDate: '2024-03-10',
-    selected: false,
+    selected: true,
   },
   {
     id: `${citiesList[1]}2024-03-07`,
@@ -31,7 +31,7 @@ const trips = [
     city: citiesList[2],
     startDate: '2024-03-13',
     endDate: '2024-03-16',
-    selected: true,
+    selected: false,
   },
   {
     id: `${citiesList[3]}2024-03-11`,
@@ -56,6 +56,7 @@ const App = () => {
   const [duration, setDuration] = useState(getTimeToTrip(trips[0].id));
   const [time, setTime] = useState(duration);
   const [tripFilter, setTripFilter] = useState('');
+  const [sortTrips, setSortTrips] = useState('');
 
   const timerRef = useRef();
 
@@ -121,16 +122,31 @@ const App = () => {
     handleClearTimeout();
   };
 
+  const handleSortTrips = (_, order) => {
+    setSortTrips(() => order);
+  };
+
   const toggleModal = () => {
     setOpenModal(!openModal);
   };
 
   const getTrips = () => {
-    return !tripFilter
-      ? trips
-      : trips.filter(trip =>
-          trip.city.toLowerCase().startsWith(tripFilter.toLowerCase())
-        );
+    if (tripFilter)
+      return trips.filter(trip =>
+        trip.city.toLowerCase().startsWith(tripFilter.toLowerCase())
+      );
+
+    if (['asc', 'desc'].includes(sortTrips)) {
+      const firstValue = sortTrips === 'asc' ? 1 : -1;
+
+      return trips.sort((a, b) =>
+        new Date(a.startDate).getTime() > new Date(b.startDate).getTime()
+          ? firstValue
+          : -firstValue
+      );
+    }
+
+    return trips;
   };
 
   // Setting Context Values
@@ -141,6 +157,7 @@ const App = () => {
     onSelectTrip: handleSelectTrip,
     onTripFilter: handleTripFilter,
     citiesList: citiesList,
+    onSortTrips: handleSortTrips,
   };
 
   const weatherValues = {
