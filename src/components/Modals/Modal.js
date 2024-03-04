@@ -26,8 +26,21 @@ function Modal({ trips, toggleModal }) {
 
   function handleAddNewTrip(e) {
     e.preventDefault();
+
     if (!inputCity || !inputStartDate || !inputEndDate) {
-      setErrorMessage(() => 'not enough info');
+      setErrorMessage(() => 'please fill in all required fields');
+      return;
+    }
+
+    if (new Date(inputStartDate).getTime() > new Date(inputEndDate).getTime()) {
+      setErrorMessage(() => 'the start date cannot be later than the end date');
+      return;
+    }
+
+    if (trips.find(trip => trip.id === inputCity + inputStartDate)) {
+      setErrorMessage(
+        () => 'you already have scheduled travel for this date at this location'
+      );
       return;
     }
 
