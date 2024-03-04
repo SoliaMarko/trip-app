@@ -103,47 +103,6 @@ function App() {
     setOpenModal(!openModal);
   }
 
-  // ***** INPUTS STATES *****
-
-  const [inputCity, setInputCity] = useState('');
-  const [inputStartDate, setInputStartDate] = useState('');
-  const [inputEndDate, setInputEndDate] = useState('');
-
-  function handleInputCity(city) {
-    setInputCity(city);
-  }
-
-  function handleInputStartDate(date) {
-    setInputStartDate(date);
-  }
-
-  function handleInputEndDate(date) {
-    setInputEndDate(date);
-  }
-
-  function handleAddNewTrip(e) {
-    e.preventDefault();
-    if (!inputCity || !inputStartDate || !inputEndDate) {
-      console.log('not enough info');
-      return;
-    }
-
-    trips.push({
-      id: `${inputCity}${inputStartDate}`,
-      city: inputCity,
-      startDate: inputStartDate,
-      endDate: inputEndDate,
-      selected: false,
-    });
-
-    toggleModal();
-
-    // Reset Inputs
-    handleInputCity('');
-    handleInputStartDate('');
-    handleInputEndDate('');
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       const tripWeatherData = await fetchWeatherData(
@@ -190,7 +149,6 @@ function App() {
     onSelectTrip: handleSelectTrip,
     onTripFilter: handleTripFilter,
     citiesList: citiesList,
-    onSaveNewTrip: handleAddNewTrip,
   };
 
   const weatherValues = {
@@ -201,9 +159,6 @@ function App() {
   const modalValues = {
     onOpenModal: toggleModal,
     onCloseModal: toggleModal,
-    onInputCity: handleInputCity,
-    onInputStartDate: handleInputStartDate,
-    onInputEndDate: handleInputEndDate,
   };
 
   const timeValues = {
@@ -231,7 +186,7 @@ function App() {
 
               {openModal && (
                 <div className="modal-container">
-                  <Modal />
+                  <Modal trips={trips} toggleModal={toggleModal} />
                 </div>
               )}
             </div>
