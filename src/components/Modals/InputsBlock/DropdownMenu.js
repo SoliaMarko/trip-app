@@ -2,12 +2,12 @@ import './DropdownMenu.css';
 import { useContext } from 'react';
 import { TripContext } from '../../../App';
 
-function DropdownMenu({ onInputCity, children }) {
+const DropdownMenu = ({ onInputCity, children }) => {
   const { citiesList } = useContext(TripContext);
 
-  function changeCity(e) {
+  const changeCity = e => {
     onInputCity(e.target.value);
-  }
+  };
 
   return (
     <div className="modal-input">
@@ -24,6 +24,6 @@ function DropdownMenu({ onInputCity, children }) {
       </select>
     </div>
   );
-}
+};
 
 export default DropdownMenu;

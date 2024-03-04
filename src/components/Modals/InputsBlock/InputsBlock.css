@@ -6,6 +6,20 @@
   align-items: center;
   gap: 1.6rem;
   overflow: auto;
+  padding: 2rem;
+}
+
+.modal-label {
+  font-size: 1.8rem;
+}
+
+.required-label::before {
+  content: '* ';
+  color: #ff0000;
+}
+
+.modal-input {
+  width: 100%;
 }
 
 .modal-input > select,
@@ -19,21 +33,4 @@
   background-position: 1rem 1rem;
   background-repeat: no-repeat;
   padding: 1.2rem;
-}
-
-.required-label::before {
-  content: '* ';
-  color: #ff0000;
-}
-
-.modal-input {
-  width: 100%;
-}
-
-.modal-label {
-  font-size: 1.8rem;
-}
-
-.modal-inputs {
-  padding: 2rem;
 }

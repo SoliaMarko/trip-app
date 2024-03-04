@@ -15,9 +15,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronLeft,
   faChevronRight,
+  faSortUp,
+  faSortDown,
 } from '@fortawesome/free-solid-svg-icons';
 
-fontawesome.library.add(faChevronLeft, faChevronRight);
+fontawesome.library.add(faChevronLeft, faChevronRight, faSortUp, faSortDown);
 
 // get root font size per 1%
 const rootElement = document.getElementById('root');
@@ -25,6 +27,11 @@ const styles = window.getComputedStyle(rootElement);
 const rootFontSize = parseFloat(styles.getPropertyValue('font-size'));
 
 const TripsList = () => {
+  const { trips, onSelectTrip } = useContext(TripContext);
+  const { onOpenModal } = useContext(ModalContext);
+
+  const [currentItem, setCurrentItem] = useState(0);
+
   let imgWidthInPx = useRef();
 
   useEffect(() => {
@@ -38,11 +45,6 @@ const TripsList = () => {
   };
 
   const imgWidthInRem = imgWidthInPx.current / rootFontSize;
-
-  const { trips, onSelectTrip } = useContext(TripContext);
-  const { onOpenModal } = useContext(ModalContext);
-
-  const [currentItem, setCurrentItem] = useState(0);
 
   // Equal: trip-item width + gap (6rem)
   const itemWidth = (imgWidthInRem + 6) * rootFontSize;
@@ -61,17 +63,13 @@ const TripsList = () => {
   );
 
   const handlePrevious = () => {
-    console.log('prev work');
     if (currentItem > 0) {
-      console.log('current less than 0');
       setCurrentItem(prev => prev - 1);
     }
   };
 
   const handleNext = () => {
-    console.log('next work');
-    if (currentItem < totalItems - 1) {
-      console.log('next less than total');
+    if (currentItem < totalItems) {
       setCurrentItem(prev => prev + 1);
     }
   };
@@ -80,8 +78,17 @@ const TripsList = () => {
     scrollToItem(currentItem);
   }, [currentItem, scrollToItem]);
 
+  const handleSort = () => {};
+
   return (
     <div className="trips-list-container">
+      <button className="sort-up-btn" onClick={handleSort}>
+        <FontAwesomeIcon icon="fa-sort-up" />
+      </button>
+      <button className="sort-down-btn" onClick={handleSort}>
+        <FontAwesomeIcon icon="fa-sort-down" />
+      </button>
+
       <button className="prev-btn" onClick={handlePrevious}>
         <FontAwesomeIcon icon="fa-chevron-left" />
       </button>

@@ -1,30 +1,32 @@
 import './Modal.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import InputsBlock from './InputsBlock/InputsBlock';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
+import { ModalContext, TripContext } from '../../App';
 
-function Modal({ trips, toggleModal }) {
-  // ***** INPUTS STATES *****
-
+const Modal = () => {
   const [inputCity, setInputCity] = useState('');
   const [inputStartDate, setInputStartDate] = useState('');
   const [inputEndDate, setInputEndDate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  function handleInputCity(city) {
-    setInputCity(city);
-  }
+  const { trips } = useContext(TripContext);
+  const { toggleModal } = useContext(ModalContext);
 
-  function handleInputStartDate(date) {
-    setInputStartDate(date);
-  }
+  const handleInputCity = city => {
+    setInputCity(() => city);
+  };
 
-  function handleInputEndDate(date) {
-    setInputEndDate(date);
-  }
+  const handleInputStartDate = date => {
+    setInputStartDate(() => date);
+  };
 
-  function handleAddNewTrip(e) {
+  const handleInputEndDate = date => {
+    setInputEndDate(() => date);
+  };
+
+  const handleAddNewTrip = e => {
     e.preventDefault();
 
     if (!inputCity || !inputStartDate || !inputEndDate) {
@@ -58,7 +60,7 @@ function Modal({ trips, toggleModal }) {
     handleInputCity('');
     handleInputStartDate('');
     handleInputEndDate('');
-  }
+  };
 
   return (
     <>
@@ -75,6 +77,6 @@ function Modal({ trips, toggleModal }) {
       </form>
     </>
   );
-}
+};
 
 export default Modal;

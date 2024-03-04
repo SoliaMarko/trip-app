@@ -6,6 +6,16 @@
   position: relative;
 }
 
+.trip-item > img {
+  height: 25rem;
+  object-fit: cover;
+}
+
+.trip-item > img,
+.trip-info {
+  width: 25rem;
+}
+
 .trip-info {
   padding: 2rem;
   display: flex;
@@ -18,16 +28,6 @@
 .trip-info > * {
   line-height: 2;
   font-size: 1.6rem;
-}
-
-.trip-item > img {
-  height: 25rem;
-  object-fit: cover;
-}
-
-.trip-item > img,
-.trip-info {
-  width: 25rem;
 }
 
 .trip-dates {

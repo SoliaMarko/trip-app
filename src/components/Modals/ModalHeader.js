@@ -2,7 +2,7 @@ import './ModalHeader.css';
 import { useContext } from 'react';
 import { ModalContext } from '../../App';
 
-function ModalHeader({ errorMessage }) {
+const ModalHeader = ({ errorMessage }) => {
   const { onCloseModal } = useContext(ModalContext);
 
   return (
@@ -12,6 +12,6 @@ function ModalHeader({ errorMessage }) {
       <button onClick={onCloseModal}>❌</button>
     </div>
   );
-}
+};
 
 export default ModalHeader;

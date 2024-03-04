@@ -1,7 +1,10 @@
 /* TRIPS LIST */
 
-.trips-list {
-  overflow-x: auto;
+.trips-list-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
 }
 
 .trips-list-wrapper {
@@ -12,29 +15,28 @@
 .trips-list {
   display: flex;
   gap: 6rem;
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
   position: relative;
+  overflow-x: auto;
 }
 
 .trips-list::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
 
-.trips-list-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  position: relative;
+.prev-btn,
+.next-btn,
+.sort-up-btn,
+.sort-down-btn {
+  color: #b5afc0;
+  background-color: transparent;
+  position: absolute;
+  z-index: 2;
 }
 
 .prev-btn,
 .next-btn {
-  color: #b5afc0;
-  background-color: transparent;
   font-size: 5.4rem;
-  position: absolute;
-  z-index: 2;
 }
 
 .prev-btn {
@@ -46,12 +48,28 @@
 }
 
 .prev-btn:hover,
-.next-btn:hover {
+.next-btn:hover,
+.sort-up-btn:hover,
+.sort-down-btn:hover {
   color: #3d426a;
 }
 
 .prev-btn:disabled:hover,
 .next-btn:disabled:hover {
   color: #b5afc0;
-  cursor: not-allowed;
+  cursor: default;
+}
+
+.sort-up-btn,
+.sort-down-btn {
+  font-size: 4rem;
+  right: -4rem;
+}
+
+.sort-up-btn {
+  top: -6rem;
+}
+
+.sort-down-btn {
+  top: -5.2rem;
 }

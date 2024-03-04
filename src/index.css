@@ -39,9 +39,25 @@ button {
   cursor: pointer;
 }
 
+::-webkit-scrollbar {
+  width: 1rem;
+  height: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b5afc0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3d426a;
+}
+
 /* ----- MEDIA QUERIES ----- */
 
-/* Phone / */
 @media only screen and (max-width: 514px) {
   html {
     font-size: 50%;
@@ -53,26 +69,6 @@ button {
     font-size: 45%;
   }
 }
-
-/* Tablet /
-@media only screen and (min-width: 601px) and (max-width: 900px) {
-/ Styles for tablets 
-} */
-
-/* Laptop / */
-/* @media only screen and (min-width: 901px) and (max-width: 1200px) { */
-/* @media only screen and (max-width: 950px) {
-} */
-
-/* Mobile Landscape /
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-/ Styles for phones in landscape
-} */
-
-/* Tablet Landscape /
-@media only screen and (min-width: 1024px) and (max-width: 1200px) {
-/ Styles for tablets in landscape
-} */
 
 @media only screen and (min-width: 2400px) {
   html {

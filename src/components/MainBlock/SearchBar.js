@@ -5,6 +5,7 @@ import { TripContext } from '../../App';
 
 const SearchBar = () => {
   const { onTripFilter } = useContext(TripContext);
+
   return (
     <>
       <h1>

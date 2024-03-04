@@ -48,7 +48,7 @@ export const WeatherContext = createContext();
 export const ModalContext = createContext();
 export const TimeContext = createContext();
 
-function App() {
+const App = () => {
   const [selectedTrip, setSelectedTrip] = useState(trips[0]);
   const [todayWeather, setTodayWeather] = useState({});
   const [tripWeather, setTripWeather] = useState({});
@@ -59,6 +59,14 @@ function App() {
 
   const timerRef = useRef();
 
+  const handleClearTimeout = () => {
+    clearTimeout(timerRef.current);
+
+    timerRef.current = setTimeout(() => {
+      setTime(time - 1000);
+    }, 1000);
+  };
+
   useEffect(() => {
     timerRef.current = setTimeout(() => {
       setTime(time - 1000);
@@ -67,17 +75,27 @@ function App() {
     return () => clearTimeout(timerRef.current);
   }, [time]);
 
-  function handleClearTimeout() {
-    clearTimeout(timerRef.current);
+  useEffect(() => {
+    const fetchTripWeatherData = async () => {
+      const tripWeatherData = await fetchWeatherData(
+        trips.find(trip => trip.id === selectedTrip.id),
+        false
+      );
 
-    timerRef.current = setTimeout(() => {
-      setTime(time - 1000);
-    }, 1000);
-  }
+      setTripWeather(() => tripWeatherData);
+    };
 
-  function handleTripFilter(e) {
-    setTripFilter(() => e.target.value);
-  }
+    const fetchTodayWeatherData = async () => {
+      const todayWeatherData = await fetchWeatherData(
+        trips.find(trip => trip.id === selectedTrip.id)
+      );
+
+      setTodayWeather(() => todayWeatherData);
+    };
+
+    fetchTripWeatherData();
+    fetchTodayWeatherData();
+  }, [selectedTrip]);
 
   function getTimeToTrip(id) {
     const trip = trips.find(trip => trip.id === id);
@@ -87,7 +105,11 @@ function App() {
     );
   }
 
-  function handleSelectTrip(id) {
+  const handleTripFilter = e => {
+    setTripFilter(() => e.target.value);
+  };
+
+  const handleSelectTrip = id => {
     setSelectedTrip(() => {
       const selectedTrip = trips.find(trip => trip.id === id);
       trips.forEach(trip => (trip.selected = false));
@@ -97,41 +119,11 @@ function App() {
     setDuration(getTimeToTrip(id));
     setTime(getTimeToTrip(id));
     handleClearTimeout();
-  }
+  };
 
-  function toggleModal() {
+  const toggleModal = () => {
     setOpenModal(!openModal);
-  }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const tripWeatherData = await fetchWeatherData(
-        trips.find(trip => trip.id === selectedTrip.id),
-        false
-      );
-
-      setTripWeather(() => tripWeatherData);
-    };
-    fetchData();
-  }, [selectedTrip]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const todayWeatherData = await fetchWeatherData(
-        trips.find(trip => trip.id === selectedTrip.id)
-      );
-
-      setTodayWeather(() => todayWeatherData);
-    };
-    fetchData();
-  }, [selectedTrip]);
-
-  if (
-    Object.keys(todayWeather).length === 0 ||
-    Object.keys(tripWeather).length === 0
-  ) {
-    return <p>Loading...</p>;
-  }
+  };
 
   const getTrips = () => {
     return !tripFilter
@@ -159,6 +151,7 @@ function App() {
   const modalValues = {
     onOpenModal: toggleModal,
     onCloseModal: toggleModal,
+    toggleModal: toggleModal,
   };
 
   const timeValues = {
@@ -166,6 +159,13 @@ function App() {
     duration: duration,
     timeLeftObj: getFormattedTime(time),
   };
+
+  if (
+    Object.keys(todayWeather).length === 0 ||
+    Object.keys(tripWeather).length === 0
+  ) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <TripContext.Provider value={tripValues}>
@@ -186,7 +186,7 @@ function App() {
 
               {openModal && (
                 <div className="modal-container">
-                  <Modal trips={trips} toggleModal={toggleModal} />
+                  <Modal />
                 </div>
               )}
             </div>
@@ -195,6 +195,6 @@ function App() {
       </WeatherContext.Provider>
     </TripContext.Provider>
   );
-}
+};
 
 export default App;

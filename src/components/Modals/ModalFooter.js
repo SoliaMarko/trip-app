@@ -2,7 +2,7 @@ import './ModalFooter.css';
 import { useContext } from 'react';
 import { ModalContext } from '../../App';
 
-function ModalFooter({ onSaveNewTrip }) {
+const ModalFooter = ({ onSaveNewTrip }) => {
   const { onCloseModal } = useContext(ModalContext);
 
   return (
@@ -17,6 +17,6 @@ function ModalFooter({ onSaveNewTrip }) {
       </div>
     </div>
   );
-}
+};
 
 export default ModalFooter;

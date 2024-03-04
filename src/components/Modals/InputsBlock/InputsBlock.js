@@ -4,7 +4,7 @@ import DateInput from './DateInput';
 import DropdownMenu from './DropdownMenu';
 import { TripContext } from '../../../App';
 
-function InputsBlock({ onInputCity, onInputStartDate, onInputEndDate }) {
+const InputsBlock = ({ onInputCity, onInputStartDate, onInputEndDate }) => {
   const { citiesList } = useContext(TripContext);
 
   return (
@@ -16,6 +16,6 @@ function InputsBlock({ onInputCity, onInputStartDate, onInputEndDate }) {
       <DateInput onInputDate={onInputEndDate}>End date</DateInput>
     </div>
   );
-}
+};
 
 export default InputsBlock;

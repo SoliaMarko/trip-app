@@ -1,4 +1,13 @@
 /* ----- LAYOUT ----- */
+
+.layout-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  min-height: 100vh;
+}
+
 .main-block {
   flex-grow: 2;
   padding: 0 5.6rem;
@@ -16,25 +25,19 @@
   width: 32%;
 }
 
-.layout-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 100%;
-  min-height: 100vh;
-}
-
 .modal-container {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 0.7rem 2.9rem 0;
   width: 50%;
   height: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 1rem;
   z-index: 10;
 }
 
@@ -48,8 +51,6 @@
   z-index: 3;
 }
 
-/* Laptop / */
-/* @media only screen and (min-width: 901px) and (max-width: 1200px) { */
 @media only screen and (max-width: 950px) {
   .layout-container {
     flex-direction: column;

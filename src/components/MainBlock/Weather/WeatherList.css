@@ -4,6 +4,5 @@
   display: flex;
   justify-content: left;
   gap: 3.2rem;
-  /* max-width: 126rem; */
   overflow-y: auto;
 }
