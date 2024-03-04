@@ -79,10 +79,10 @@ const TripsList = () => {
 
   return (
     <div className="trips-list-container">
-      <button className="sort-up-btn" onClick={e => onSortTrips(e, 'asc')}>
+      <button className="sort-up-btn" onClick={() => onSortTrips('asc')}>
         <FontAwesomeIcon icon="fa-sort-up" />
       </button>
-      <button className="sort-down-btn" onClick={e => onSortTrips(e, 'desc')}>
+      <button className="sort-down-btn" onClick={() => onSortTrips('desc')}>
         <FontAwesomeIcon icon="fa-sort-down" />
       </button>
 

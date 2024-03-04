@@ -11,7 +11,7 @@ const Modal = () => {
   const [inputEndDate, setInputEndDate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { trips } = useContext(TripContext);
+  const { trips, onSortTrips } = useContext(TripContext);
   const { toggleModal } = useContext(ModalContext);
 
   const handleInputCity = city => {
@@ -24,6 +24,12 @@ const Modal = () => {
 
   const handleInputEndDate = date => {
     setInputEndDate(() => date);
+  };
+
+  const resetInputs = () => {
+    handleInputCity('');
+    handleInputStartDate('');
+    handleInputEndDate('');
   };
 
   const handleAddNewTrip = e => {
@@ -55,11 +61,8 @@ const Modal = () => {
     });
 
     toggleModal();
-
-    // Reset Inputs
-    handleInputCity('');
-    handleInputStartDate('');
-    handleInputEndDate('');
+    resetInputs();
+    onSortTrips('');
   };
 
   return (

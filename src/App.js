@@ -13,10 +13,10 @@ import { fetchWeatherData } from './utils/fetchData';
 
 const trips = [
   {
-    id: `${citiesList[0]}2024-03-05`,
+    id: `${citiesList[0]}2024-03-18`,
     city: citiesList[0],
-    startDate: '2024-03-05',
-    endDate: '2024-03-10',
+    startDate: '2024-03-18',
+    endDate: '2024-03-19',
     selected: true,
   },
   {
@@ -122,7 +122,7 @@ const App = () => {
     handleClearTimeout();
   };
 
-  const handleSortTrips = (_, order) => {
+  const handleSortTrips = order => {
     setSortTrips(() => order);
   };
 
@@ -181,7 +181,7 @@ const App = () => {
     Object.keys(todayWeather).length === 0 ||
     Object.keys(tripWeather).length === 0
   ) {
-    return <p>Loading...</p>;
+    return <h1>Loading...</h1>;
   }
 
   return (
