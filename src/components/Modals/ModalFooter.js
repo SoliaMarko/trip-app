@@ -1,10 +1,9 @@
 import './ModalFooter.css';
 import { useContext } from 'react';
-import { ModalContext, TripContext } from '../../App';
+import { ModalContext } from '../../App';
 
-function ModalFooter() {
+function ModalFooter({ onSaveNewTrip }) {
   const { onCloseModal } = useContext(ModalContext);
-  const { onSaveNewTrip } = useContext(TripContext);
 
   return (
     <div className="modal-footer">

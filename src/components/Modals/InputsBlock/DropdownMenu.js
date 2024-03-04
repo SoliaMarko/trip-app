@@ -1,9 +1,8 @@
 import './DropdownMenu.css';
 import { useContext } from 'react';
-import { ModalContext, TripContext } from '../../../App';
+import { TripContext } from '../../../App';
 
-function DropdownMenu({ children }) {
-  const { onInputCity } = useContext(ModalContext);
+function DropdownMenu({ onInputCity, children }) {
   const { citiesList } = useContext(TripContext);
 
   function changeCity(e) {

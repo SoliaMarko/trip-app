@@ -10,3 +10,9 @@
   background-color: #fff;
   font-size: 2rem;
 }
+
+.alert-info {
+  color: #ff2526;
+  font-weight: 600;
+  font-size: 1.8rem;
+}

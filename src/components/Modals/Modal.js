@@ -1,17 +1,64 @@
 import './Modal.css';
+import { useState } from 'react';
 import InputsBlock from './InputsBlock/InputsBlock';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 
-function Modal() {
+function Modal({ trips, toggleModal }) {
+  // ***** INPUTS STATES *****
+
+  const [inputCity, setInputCity] = useState('');
+  const [inputStartDate, setInputStartDate] = useState('');
+  const [inputEndDate, setInputEndDate] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  function handleInputCity(city) {
+    setInputCity(city);
+  }
+
+  function handleInputStartDate(date) {
+    setInputStartDate(date);
+  }
+
+  function handleInputEndDate(date) {
+    setInputEndDate(date);
+  }
+
+  function handleAddNewTrip(e) {
+    e.preventDefault();
+    if (!inputCity || !inputStartDate || !inputEndDate) {
+      setErrorMessage(() => 'not enough info');
+      return;
+    }
+
+    trips.push({
+      id: `${inputCity}${inputStartDate}`,
+      city: inputCity,
+      startDate: inputStartDate,
+      endDate: inputEndDate,
+      selected: false,
+    });
+
+    toggleModal();
+
+    // Reset Inputs
+    handleInputCity('');
+    handleInputStartDate('');
+    handleInputEndDate('');
+  }
+
   return (
     <>
       <form className="modal">
-        <ModalHeader />
+        <ModalHeader errorMessage={errorMessage} />
         <hr />
-        <InputsBlock />
+        <InputsBlock
+          onInputCity={handleInputCity}
+          onInputStartDate={handleInputStartDate}
+          onInputEndDate={handleInputEndDate}
+        />
         <hr />
-        <ModalFooter />
+        <ModalFooter onSaveNewTrip={handleAddNewTrip} />
       </form>
     </>
   );

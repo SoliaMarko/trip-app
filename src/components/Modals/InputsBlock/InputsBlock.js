@@ -2,12 +2,10 @@ import './InputsBlock.css';
 import { useContext } from 'react';
 import DateInput from './DateInput';
 import DropdownMenu from './DropdownMenu';
-import { ModalContext, TripContext } from '../../../App';
+import { TripContext } from '../../../App';
 
-function InputsBlock() {
+function InputsBlock({ onInputCity, onInputStartDate, onInputEndDate }) {
   const { citiesList } = useContext(TripContext);
-  const { onInputCity, onInputStartDate, onInputEndDate } =
-    useContext(ModalContext);
 
   return (
     <div className="modal-inputs">

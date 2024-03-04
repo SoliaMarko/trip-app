@@ -25,8 +25,6 @@ const styles = window.getComputedStyle(rootElement);
 const rootFontSize = parseFloat(styles.getPropertyValue('font-size'));
 
 const TripsList = () => {
-  // ************************************************
-
   let imgWidthInPx = useRef();
 
   useEffect(() => {
@@ -40,8 +38,6 @@ const TripsList = () => {
   };
 
   const imgWidthInRem = imgWidthInPx.current / rootFontSize;
-
-  // *********************************************************
 
   const { trips, onSelectTrip } = useContext(TripContext);
   const { onOpenModal } = useContext(ModalContext);
